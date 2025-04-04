@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit edo
+
 # Package name: sys-apps/66
 DESCRIPTION="Init system and dependency management over s6"
 HOMEPAGE="https://web.obarun.org/software/66/0.8.0.2/index/"
@@ -34,11 +36,11 @@ src_configure() {
  ); fi
  if use static-libs; then econfargs+=("--enable-static"); fi
 
- ./configure "${econfargs[@]}"
+ edo ./configure "${econfargs[@]}"
 }
 
 src_install() {
  emake DESTDIR="${D}" install
  # Moving the doc paths to conform to gentoo's FHS
- else mv "${ED}/usr/share/doc/${PN}/${PV}" "${ED}/usr/share/doc/${PF}"; fi
+ mv "${ED}/usr/share/doc/${PN}/${PV}" "${ED}/usr/share/doc/${PF}"
 }
